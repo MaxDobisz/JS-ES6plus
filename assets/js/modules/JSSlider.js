@@ -111,16 +111,24 @@ export default class JSSlider {
     }
 
     onImagePrev() {
-        const currentClassName = 'js-slider__thumbs-image--current';
-        const current = this.querySelector('.' + currentClassName);
-        const parentCurrent = current.parentElement;
-        const prevElement = parentCurrent.previousElementSibling;
-        if(prevElement && !prevElement.className.includes('js-slider__thumbs-item--prototype')) {
-            const img = prevElement.querySelector('img')
-            img.classList.add(currentClassName);
-            this.querySelector('.js-slider__image').src = img.src;
-            current.classList.remove(currentClassName);
-        }
+        const currentImg = this.querySelector('.js-slider__thumbs-image--current');
+        const prevImg = currentImg.parentElement.previousElementSibling;
+        const prevImgClassName = prevImg.className;
+        const sliderImage = this.querySelector('.js-slider__image');
+        
+        if(prevImgClassName.includes('js-slider__thumbs-item--prototype')) {
+            const imgPrototype = this.querySelector('.js-slider__thumbs-item--prototype');
+            const lastImg = imgPrototype.parentElement.lastElementChild;
+            currentImg.classList.remove('js-slider__thumbs-image--current'); 
+            lastImg.firstElementChild.classList.add('js-slider__thumbs-image--current');
+            const lastImgSrc = lastImg.firstElementChild.getAttribute('src');
+            sliderImage.setAttribute('src', lastImgSrc);
+        } else {
+            currentImg.classList.remove('js-slider__thumbs-image--current');
+            prevImg.firstElementChild.classList.add('js-slider__thumbs-image--current');
+            const prevElementSrc = prevImg.firstElementChild.getAttribute('src');
+            sliderImage.setAttribute('src', prevElementSrc);
+        };
     }
 
     onClose({currentTarget}) {    
@@ -128,7 +136,6 @@ export default class JSSlider {
         const thumbsList = this.querySelectorAll('.js-slider__thumbs-item:not(.js-slider__thumbs-item--prototype)');
         thumbsList.forEach( item => item.parentElement.removeChild(item));
     }
-    
     
     nextAuto() {
         const {sliderRootElement} = this;
