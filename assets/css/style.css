@@ -41,7 +41,6 @@ body {
     cursor: zoom-in;
 }
 
-
 .gallery__item--pos1 {
     grid-column-start: 1;
     grid-column-end: 3;
@@ -156,7 +155,6 @@ body {
     width: auto;
     object-fit: cover;
     cursor: not-allowed;
-
 }
 
 .js-slider__thumbs {

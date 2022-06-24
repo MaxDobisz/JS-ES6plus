@@ -139,7 +139,6 @@ export default class JSSlider {
     
     nextAuto() {
         const {sliderRootElement} = this;
-
         const fireNextImg = () => {
             this.fireCustomEvent(sliderRootElement, 'js-slider-img-next');
         }
